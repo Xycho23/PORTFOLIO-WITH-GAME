@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gino Gabriel's Portfolio</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'VT323', monospace; /* Pixelated font */
+      background-color: #f5deb3; /* Light brown */
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-image: url('pixel-farm.png'); /* Pixelated background */
+      background-size: cover;
+      background-repeat: repeat;
+    }
+
+    header {
+        text-align: center;
+        padding: 20px;
+        background-color: #b545ed; /* Lavender */
+        color: #fff; /* White */
+        border-bottom: 4px solid #824a9c; /* Purple */
+        image-rendering: pixelated; 
+        background-image: url("background.jpg"); 
+        background-size: cover;
+        background-position: center;
+      
+    }
+
+    header img {
+      width: 100px;
+      height: auto;
+      border-radius: 50%;
+      image-rendering: pixelated;
+    }
+
+    header h1 {
+      margin: 20px 0;
+      font-size: 3em;
+    }
+
+    header p {
+      margin: 2cap 0 0;
+      font-size: 3em;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: center;
+      padding: 1px 0;
+      border-bottom: 2px solid #824a9c; /* Purple */
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    nav a {
+      color: #772d2d; /* White */
+      text-decoration: none;
+      padding: 10px 20px;
+      margin: 0 5px;
+      border: 2px solid #b090bf; /* Purple */
+      border-radius: 5px;
+      background-color: rgba(0, 0, 0, 0.2); /* Transparent black */
+      transition: background-color 0.3s, transform 0.3s;
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    nav a:hover {
+      background-color: #a568c2; /* Lavender */
+      color: #000; /* Black */
+      transform: scale(1.05);
+    }
+
+    /* Section Styles */
+    section {
+      padding: 20px;
+      margin: 20px auto;
+      background-color: #edd176; /* White */
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.6em;
+      border-bottom: 2px solid #824a9c; /* Purple */
+      padding-bottom: 10px;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    /* Game and Battle Styles */
+    .game-selection, .category-selection, .mode-selection, .pokemon-battle {
+      display: none;
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    .game-selection.active, .category-selection.active, .mode-selection.active, .pokemon-battle.active {
+      display: block;
+    }
+
+    .button {
+      background-color: #9973b2; /* Dark purple */
+      color: #fff; /* White */
+      border: 2px solid #824a9c; /* Purple */
+      padding: 10px 20px;
+      font-size: 1em;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 5px;
+      transition: background-color 0.3s, transform 0.3s;
+      cursor: pointer;
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    .button:hover {
+      background-color: #a568c2; /* Lavender */
+      color: #000; /* Black */
+      transform: scale(1.05);
+    }
+
+    .button:active {
+      background-color: #7d4cb2; /* Darker purple */
+      color: #fff; /* White */
+    }
+
+    /* Pokémon Battle Styles */
+    .pokemon {
+      text-align: center;
+      margin: 20px;
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    .pokemon img {
+      width: 150px;
+      height: auto;
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    .hp-bar {
+      width: 100%;
+      height: 20px;
+      background-color: #ddd;
+      border: 2px solid #333;
+      border-radius: 5px;
+      margin: 10px 0;
+      position: relative;
+      overflow: hidden;
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    .hp-bar .hp-fill {
+      height: 100%;
+      background-color: #f44336;
+      width: 100%;
+      transition: width 0.5s;
+    }
+
+    .question-container {
+      text-align: center;
+      margin-top: 20px;
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    .question-container .question {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+    }
+
+    .answer-button {
+      background-color: #d28eff; /* Dark purple */
+      color: #fff; /* White */
+      border: 2px solid #824a9c; /* Purple */
+      padding: 10px 20px;
+      font-size: 1em;
+      font-weight: bold;
+      border-radius: 5px;
+      margin: 5px;
+      transition: background-color 0.3s, transform 0.3s;
+      cursor: pointer;
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    .answer-button:hover {
+      background-color: #a568c2; /* Lavender */
+      color: #000; /* Black */
+      transform: scale(1.05);
+    }
+
+    .answer-button:active {
+      background-color: #7d4cb2; /* Darker purple */
+      color: #fff; /* White */
+    }
+
+    .answer-input {
+      padding: 10px;
+      font-size: 1em;
+      border: 2px solid #824a9c; /* Purple */
+      border-radius: 5px;
+      margin: 5px;
+      width: calc(100% - 22px);
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    .feedback {
+      font-size: 1.2em;
+      margin: 10px 0;
+    }
+
+    /* Badge and Certificate */
+    .badge-container {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      margin: 20px auto;
+      background-color: #fff; /* White */
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    .badge-container img {
+      width: 200px;
+      height: auto;
+      image-rendering: pixelated; /* Pixelated effect */
+    }
+
+    .badge-container h3 {
+      margin: 10px 0;
+      font-size: 1.5em;
+    }
+
+    @font-face {
+      font-family: 'VT323';
+      src: url('path-to-your-font-file.ttf') format('truetype');
+    }
+
+    .skill-bar-container {
+        margin-top: 20px;
+        
+        background-size: cover;
+        background-repeat: no-repeat;
+        padding: 20px;
+        border: 2px solid #824a9c; 
+        border-radius: 5px;
+      }
+      
+      .skill-bar {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        background-color: rgba(0, 0, 0, 0.2); /* Slightly transparent background */
+        border: 1px solid #e1b9175d; /* Dark purple border */
+        padding: 5px;
+        border-radius: 3px;
+      }
+      
+      .skill-bar-label {
+        flex: 1;
+        font-family: 'VT323', monospace; /* Pixelated font */
+        color: #ce4949; 
+      }
+      
+      .skill-bar-progress {
+        height: 15px;
+        background-color: #815513; 
+        border-radius: 3px;
+      }
+      header {
+        /* ... (rest of your header styles) */
+        animation: header-animation 1s ease-in-out;
+      }
+      
+      @keyframes header-animation {
+        0% {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      nav a {
+        /* ... (rest of your nav link styles) */
+        animation: nav-link-animation 0.5s ease-in-out;
+      }
+      
+      @keyframes nav-link-animation {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    
+  </style>
+</head>
+<body>
+    <body>
+        <audio id="battle-music" src="bgmusic.mp3"></audio>
+        <audio id="correct-sound" src="attack.mp3"></audio>
+        <audio id="incorrect-sound" src="quagsire-cry.mp3"></audio>
+        <audio id="winner-music" src="winner.mp3"></audio>
+      </body>
+</body>
+</html>
+
+</head>
+<body>
+    <header>
+        <img src="image.png" alt="Profile Picture">
+        <h1>Gino Gabriel</h1>
+        <p>Professional Portfolio</p>
+    </header>
+
+    <nav class="nav">
+        <a href="#about-me">About Me</a>
+        <a href="#subjects">Subjects</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="about-me">
+        <h2>About Me</h2>
+        <p>Hi, I'm Gino Gabriel, a passionate web developer based in Puerto Princesa, Philippines. With a strong foundation in HTML, CSS, and JavaScript, I'm dedicated to crafting visually appealing and user-friendly websites.</p>
+      
+        <p>I'm driven by a love for creating digital experiences that not only look great but also function seamlessly. I enjoy tackling new challenges, learning emerging technologies, and collaborating with talented individuals to bring innovative projects to life.</p>
+      
+        <p>Beyond my technical skills, I'm a creative thinker with a passion for design and aesthetics. I believe that a well-crafted website should be both functional and visually pleasing, leaving a lasting impression on visitors.</p>
+      
+        <p>Feel free to explore my portfolio to see some of my work and learn more about how I can contribute to your digital projects.</p>
+      </section>
+
+      <section id="subjects">
+        <h2>Subjects</h2>
+        <p>I specialize in various subjects, including web development, game design, and interactive media. My work involves using cutting-edge technologies to create innovative solutions.</p>
+      
+        <div class="skill-bar-container">
+          <h3>Skill Level</h3>
+          <div class="skill-bar">
+            <div class="skill-bar-label">Web Development</div>
+            <div class="skill-bar-progress" style="width: 90%;"></div>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-bar-label">Game Design</div>
+            <div class="skill-bar-progress" style="width: 80%;"></div>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-bar-label">Interactive Media</div>
+            <div class="skill-bar-progress" style="width: 70%;"></div>
+          </div>
+        </div>
+      </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div id="game-selection" class="game-selection active">
+            <h3>Select a Game</h3>
+            <button class="button" onclick="showSection('category-selection')">Start Pokémon Battle</button>
+        </div>
+
+        <div id="category-selection" class="category-selection">
+            <h3>Select a Category</h3>
+            <button class="button" onclick="showSection('mode-selection', 'emmet')">Emmet</button>
+            <button class="button" onclick="showSection('mode-selection', 'python')">Python</button>
+            <button class="button" onclick="showSection('mode-selection', 'program')">Program</button>
+        </div>
+
+        <div id="mode-selection" class="mode-selection">
+            <h3>Select a Mode</h3>
+            <button class="button" onclick="startBattle('easy')">Easy Mode</button>
+            <button class="button" onclick="startBattle('difficult')">Difficult Mode</button>
+        </div>
+
+        <div id="pokemon-battle" class="pokemon-battle">
+            <div class="pokemon">
+                <h2>Player Pokémon</h2>
+                <img src="pikachu.gif" alt="Player Pokémon">
+                <div class="hp-bar">
+                    <div class="hp-fill" id="player-hp" style="width: 10%;"></div>
+                </div>
+                
+            </div>
+            <div class="question-container">
+                <div id="question" class="question">Select a category to start the battle!</div>
+                <div id="answers"></div>
+                <input type="text" id="answer-input" class="answer-input" placeholder="Type your answer here" style="display: none;">
+                <button id="submit-answer" class="answer-button" style="display: none;" onclick="submitAnswer()">Submit Answer</button>
+                <div id="feedback" class="feedback"></div>
+            </div>
+            <div class="pokemon">
+                <h2>Enemy Pokémon</h2>
+                <img src="bulbasaur.gif" alt="Enemy Pokémon">
+                <div class="hp-bar">
+                    <div class="hp-fill" id="enemy-hp" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div id="congrats-gif-container" style="display: none;">
+            <img src="congrats.gif" alt="Victory GIF">
+          </div>
+
+        <div id="certificate" class="badge-container">
+            <img src="certificate.gif" alt="Certificate">
+            <h3>Congratulations!</h3>
+            <p>You have won the battle and earned a certificate!</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>If you'd like to get in touch, please use the contact form below or reach out to me via:</p>
+        <ul>
+          <li><strong>Email:</strong> <i class="fa fa-envelope"></i> itsmegino22@gmail.com</li>
+          <li><strong>Facebook:</strong> <i class="fa fa-facebook"></i> <a href="https://web.facebook.com/yakete.itsuri" target="_blank">FACEBOOK LINK</a></li>
+        </ul>
+      </section>
+
+    <script>
+
+        const battleMusic = document.getElementById('battle-music');
+        const winnerMusic = document.getElementById('winner-music');
+
+const correctSound = document.getElementById('correct-sound');
+
+const incorrectSound = document.getElementById('incorrect-sound');
+        
+        let playerHP = 100;
+        let enemyHP = 100;
+        let currentCategory = '';
+        let currentMode = '';
+        const questions = {
+            emmet: [
+                { question: "What is Emmet?", correct: "A toolkit for web development.", incorrect: "A programming language." },
+                { question: "How do you use Emmet?", correct: "By typing shortcuts that expand into code.", incorrect: "By writing complex scripts manually." },
+                { question: "What is the shortcut for expanding abbreviations?", correct: "Tab key.", incorrect: "Enter key." },
+                { question: "Which file format does Emmet support?", correct: "HTML and CSS.", incorrect: "Only HTML." },
+                { question: "What is Emmet’s primary purpose?", correct: "Speed up coding.", incorrect: "Debugging code." },
+                { question: "Can Emmet be used in JavaScript?", correct: "No, it is not designed for JavaScript.", incorrect: "Yes, with some plugins." },
+                { question: "What is a common Emmet abbreviation?", correct: "ul>li*5", incorrect: "div>p*3." },
+                { question: "Is Emmet built into all editors?", correct: "No, it needs to be installed.", incorrect: "Yes, it is built-in." },
+                { question: "How can Emmet abbreviations be expanded?", correct: "By pressing the Tab key.", incorrect: "By pressing Ctrl+Enter." },
+                { question: "What does Emmet stand for?", correct: "Emmet does not stand for anything specific.", incorrect: "Extended Markup Language." }
+            ],
+            python: [
+                { question: "What is Python?", correct: "A high-level programming language.", incorrect: "A type of snake." },
+                { question: "How do you print something in Python?", correct: "Using the print() function.", incorrect: "Using the echo() function." },
+                { question: "What is the keyword for defining a function?", correct: "def", incorrect: "func" },
+                { question: "What does the 'return' statement do?", correct: "Returns a value from a function.", incorrect: "Ends the program." },
+                { question: "What is a list in Python?", correct: "A collection of items in a particular order.", incorrect: "A type of variable." },
+                { question: "How do you create a comment in Python?", correct: "Using #", incorrect: "Using //." },
+                { question: "What is the purpose of indentation in Python?", correct: "To define code blocks.", incorrect: "To align code." },
+                { question: "What does 'self' refer to in a class?", correct: "The instance of the class.", incorrect: "The class itself." },
+                { question: "How do you handle exceptions in Python?", correct: "Using try and except.", incorrect: "Using if and else." },
+                { question: "What is a tuple?", correct: "An immutable sequence of values.", incorrect: "A mutable sequence of values." }
+            ],
+            program: [
+                { question: "What is a program?", correct: "A set of instructions for a computer.", incorrect: "A type of software." },
+                { question: "What does debugging mean?", correct: "Finding and fixing errors in code.", incorrect: "Running code to see if it works." },
+                { question: "What is an algorithm?", correct: "A step-by-step procedure for solving a problem.", incorrect: "A programming language." },
+                { question: "What is a variable?", correct: "A storage location paired with a name.", incorrect: "A type of function." },
+                { question: "What is a loop?", correct: "A control structure that repeats code.", incorrect: "A type of variable." },
+                { question: "What is object-oriented programming?", correct: "A paradigm based on objects and classes.", incorrect: "A type of data structure." },
+                { question: "What is a function?", correct: "A block of code that performs a specific task.", incorrect: "A type of variable." },
+                { question: "What is a syntax error?", correct: "An error in the structure of the code.", incorrect: "An error in the logic of the code." },
+                { question: "What is a class?", correct: "A blueprint for creating objects.", incorrect: "A type of variable." },
+                { question: "What does 'inheritance' mean in programming?", correct: "A class can inherit attributes and methods from another class.", incorrect: "A method can inherit attributes from a variable." }
+            ]
+        };
+
+        let currentQuestionIndex = 0;
+
+        function showSection(sectionId, category = '') {
+            const sections = ['game-selection', 'category-selection', 'mode-selection', 'pokemon-battle'];
+            sections.forEach(sec => {
+                document.getElementById(sec).classList.remove('active');
+            });
+
+            if (category) {
+                currentCategory = category;
+            }
+
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function startBattle(mode) {
+            currentMode = mode;
+            showSection('pokemon-battle');
+            document.getElementById('answer-input').style.display = mode === 'difficult' ? 'block' : 'none';
+            document.getElementById('submit-answer').style.display = mode === 'difficult' ? 'block' : 'none';
+            playerHP = 100;
+            enemyHP = 100;
+            currentQuestionIndex = 0;
+            displayNextQuestion();
+            updateHP();
+            battleMusic.play();
+            
+        }
+
+        function displayNextQuestion() {
+            const questionContainer = document.querySelector('#answers');
+            const questionsList = questions[currentCategory];
+            if (currentQuestionIndex < questionsList.length) {
+                const item = questionsList[currentQuestionIndex];
+                document.getElementById('question').innerText = item.question;
+                let questionHTML = '';
+
+                if (currentMode === 'easy') {
+                    questionHTML += `<button class="answer-button" onclick="answerQuestion('${item.correct}', true)">${item.correct}</button>`;
+                    
+                    questionHTML += `<button class="answer-button" onclick="answerQuestion('${item.incorrect}', false)">${item.incorrect}</button>`;
+                } else {
+                    document.getElementById('answer-input').style.display = 'block';
+                    document.getElementById('submit-answer').style.display = 'block';
+                    questionHTML = ''; // Clear previous answers
+                }
+                
+                questionContainer.innerHTML = questionHTML;
+                document.getElementById('feedback').innerText = ''; // Clear feedback
+            } else {
+                alert('No more questions available!');
+                endBattle();
+            }
+        }
+        
+
+        function updateHP() {
+            document.getElementById('player-hp').style.width = playerHP + '%';
+            document.getElementById('enemy-hp').style.width = enemyHP + '%';
+
+            if (playerHP <= 0) {
+                alert('You have been defeated!');
+                document.getElementById('certificate').style.display = 'none';
+            }
+
+            if (enemyHP <= 0) {
+                alert('You have won the battle!');
+                correctSound.play();
+                document.getElementById('certificate').style.display = 'block';
+            }
+       
+        }
+
+        function playerHeal() {
+            playerHP = Math.min(100, playerHP + 10);
+            updateHP();
+        }
+
+        function answerQuestion(answer, isCorrect) {
+            if (currentMode === 'easy') {
+                if (isCorrect) {
+                    enemyHP -= 10;
+                    correctSound.play();
+                    document.getElementById('feedback').innerText = 'You are correct!';
+                } else {
+                    playerHP -= 10;
+                    incorrectSound.play();
+                    document.getElementById('feedback').innerText = 'You are incorrect!';
+                }
+            } else {
+                let userAnswer = document.getElementById('answer-input').value.toLowerCase();
+                let isCorrect = questions[currentCategory].some(q => q.correct.toLowerCase() === userAnswer);
+                if (isCorrect) {
+                    enemyHP -= 10;
+                    document.getElementById('feedback').innerText = 'You are correct!';
+                } else {
+                    playerHP -= 10;
+                    document.getElementById('feedback').innerText = 'You are incorrect!';
+                }
+                document.getElementById('answer-input').value = ''; // Clear input after submission
+            }
+            updateHP();
+            currentQuestionIndex++;
+            displayNextQuestion();
+        }
+
+        function endBattle() {
+            document.getElementById('pokemon-battle').classList.remove('active');
+            document.getElementById('certificate').style.display = 'block';
+            winnerMusic.play();
+            document.getElementById('congrats-gif-container').style.display = 'flex';
+        }
+        
+    </script>
+
+</body>
+</html>
